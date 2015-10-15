@@ -1,0 +1,51 @@
+export GOPATH=$HOME
+export PATH=$GOPATH/bin:$PATH
+
+export ANYENV_ROOT=$HOME/src/github.com/anyenv
+export PATH=$ANYENV_ROOT/bin:$PATH
+eval "$(anyenv init -)"
+
+export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2376
+export DOCKER_CERT_PATH=/Users/nakazawa/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1       
+
+autoload -Uz compinit
+compinit
+
+setopt list_packed
+
+#ドットファイルにマッチさせるために先頭に'.'を付ける必要がなくなる。
+# setopt glog_dots
+
+# aliasを展開して補完。
+# setopt complete_aliases
+
+# 補完候補が複数ある時に、一覧表示する
+setopt auto_list
+
+
+HISTFILE=~/.zsh_history
+
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+# 補完候補のメニュー選択で、矢印キーの代わりにhjklで移動出来るようにする。
+zmodload zsh/complist
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+
+function peco-src () {
+    local selected_dir=$(ghq list --full-path | peco --query "$LBUFFER")
+    if [ -n "$selected_dir" ]; then
+        BUFFER="cd ${selected_dir}"
+        zle accept-line
+    fi
+    zle clear-screen
+}
+zle -N peco-src
+
+bindkey '^]' peco-src
