@@ -1,0 +1,6 @@
+[user]
+	name = Toshihide Nakazawa
+	email = nakazavva@gmail.com
+[core]
+	editor = vim
+	excludesfile = ~/.gitexclude
