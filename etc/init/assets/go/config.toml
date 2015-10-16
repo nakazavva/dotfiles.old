@@ -1,0 +1,4 @@
+repos = [
+    "github.com/peco/peco",
+    "github.com/motemen/ghq"
+]
