@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/src/github.com/toshitaphy/dotfiles/oh-my-zsh
+export ZSH=$HOME/src/github.com/nakazavva/dotfiles/oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -82,5 +82,5 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source $HOME/src/github.com/toshitaphy/dotfiles/.zshrc.mine
+source $HOME/src/github.com/nakazavva/dotfiles/zsh/.zshrc.mine
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
