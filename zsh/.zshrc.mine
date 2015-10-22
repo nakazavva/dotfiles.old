@@ -1,9 +1,15 @@
 export GOPATH=$HOME
 export PATH=$GOPATH/bin:$PATH
 
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+
 export ANYENV_ROOT=$HOME/src/github.com/anyenv
 export PATH=$ANYENV_ROOT/bin:$PATH
-eval "$(anyenv init -)"
+if [ -x anyenv ]; then
+    eval "$(anyenv init -)"
+fi
 
 export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2376
 export DOCKER_CERT_PATH=/Users/nakazawa/.boot2docker/certs/boot2docker-vm
@@ -11,18 +17,6 @@ export DOCKER_TLS_VERIFY=1
 
 autoload -Uz compinit
 compinit
-
-setopt list_packed
-
-#ドットファイルにマッチさせるために先頭に'.'を付ける必要がなくなる。
-# setopt glog_dots
-
-# aliasを展開して補完。
-# setopt complete_aliases
-
-# 補完候補が複数ある時に、一覧表示する
-setopt auto_list
-
 
 HISTFILE=~/.zsh_history
 
