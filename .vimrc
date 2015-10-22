@@ -28,6 +28,7 @@ if has('vim_starting')
 endif
 
 " NeoBundle: {{{1
+"
 if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
 
     call neobundle#begin(expand($VIMBUNDLE))
@@ -35,7 +36,11 @@ if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
 
     NeoBundle 'Shougo/unite.vim'
     NeoBundle 'Shougo/neomru.vim'
+    NeoBundle 'Shougo/neocomplete.vim'
+    NeoBundle 'Shougo/unite-outline'
 
+    NeoBundle 'scrooloose/syntastic.git'
+    NeoBundle 'fatih/vim-go'
 
     call neobundle#end()
     filetype plugin indent on
@@ -60,6 +65,7 @@ endif
 let g:unite_enable_start_insert = 1
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1 
+
 
 call unite#custom_default_action('file', 'split')
 noremap <Leader>uf :Unite file<CR>
@@ -102,11 +108,40 @@ function! s:unite_settings()"{{{
     inoremap <silent> <buffer> <expr> ,a unite#do_action('absolute_path')
 endfunction"}}}
 
+" Shougo/neocomplete.vim "{{{2
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns._ = '\h\w*'
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplete#enable_smart_case = 1
+
+
+let g:syntastic_check_on_open=0
+let g:syntastic_check_on_save=1
+let g:syntastic_auto_loc_list=0
+let g:syntastic_loc_list_height=6
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
+
 augroup vimrc
      autocmd!
      autocmd BufWritePost *vimrc source $MYVIMRC
      autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
- augroup END
+augroup END
+
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
 let mapleader=','
 let mapleader=','
@@ -132,4 +167,3 @@ set shiftwidth=4 " インデント時のスペースの数
 set completeopt=menuone " 補完時にプレビューウィンドウが開かないようにする、分割時にガチャガチャ動くのを防ぐ
 set backspace=indent,eol,start " バックスペースの動きを自然に
 set clipboard+=unnamed " 無名レジスタに入るデータを＊レジスタにもいれる
-
