@@ -40,6 +40,15 @@ if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
     NeoBundle 'Shougo/neomru.vim'
     NeoBundle 'Shougo/neocomplete.vim'
     NeoBundle 'Shougo/unite-outline'
+    NeoBundle 'Shougo/vimproc.vim', {
+    \ 'build' : {
+    \     'windows' : 'tools\\update-dll-mingw',
+    \     'cygwin' : 'make -f make_cygwin.mak',
+    \     'mac' : 'make',
+    \     'linux' : 'make',
+    \     'unix' : 'gmake',
+    \    },
+    \ }
 
     NeoBundle 'scrooloose/syntastic.git'
     NeoBundle 'fatih/vim-go'
