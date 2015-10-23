@@ -1,5 +1,5 @@
- " Note: Skip initialization for vim-tiny or vim-small.
- if 0 | endif
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
 
 " platform
 let s:is_windows = has('win16') || has('win32') || has('win64')
@@ -27,6 +27,8 @@ if has('vim_starting')
     set runtimepath+=$NEOBUNDLEPATH
 endif
 
+let mapleader=','
+
 " NeoBundle: {{{1
 "
 if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
@@ -41,6 +43,8 @@ if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
 
     NeoBundle 'scrooloose/syntastic.git'
     NeoBundle 'fatih/vim-go'
+
+    NeoBundle 'tyru/caw.vim'
 
     call neobundle#end()
     filetype plugin indent on
@@ -126,7 +130,6 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-
 augroup vimrc
      autocmd!
      autocmd BufWritePost *vimrc source $MYVIMRC
@@ -143,8 +146,9 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
-let mapleader=','
-let mapleader=','
+noremap <leader>/ <Plug>(caw:i:toggle)
+vnoremap <leader>/ <Plug>(caw:i:toggle)
+
 set encoding=utf-8 " エンコード
 set fileencoding=utf-8 " ファイルエンコード
 set noswapfile " .swapファイルを作らない
