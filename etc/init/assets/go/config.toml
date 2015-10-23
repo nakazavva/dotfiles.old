@@ -1,4 +1,5 @@
 repos = [
+    "github.com/nsf/gocode",
     "github.com/peco/peco",
     "github.com/motemen/ghq"
 ]
