@@ -1,6 +1,8 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
+let mapleader=','
+
 " platform
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
@@ -27,7 +29,6 @@ if has('vim_starting')
     set runtimepath+=$NEOBUNDLEPATH
 endif
 
-let mapleader=','
 
 " NeoBundle: {{{1
 "
@@ -139,6 +140,9 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
+
+let g:go_fmt_command = "goimports"
+
 augroup vimrc
      autocmd!
      autocmd BufWritePost *vimrc source $MYVIMRC
@@ -155,8 +159,8 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
-noremap <leader>/ <Plug>(caw:i:toggle)
-vnoremap <leader>/ <Plug>(caw:i:toggle)
+nmap <leader>c <Plug>(caw:i:toggle)
+vmap <leader>c <Plug>(caw:i:toggle)
 
 set encoding=utf-8 " エンコード
 set fileencoding=utf-8 " ファイルエンコード
