@@ -3,7 +3,13 @@ CANDIDATES := $(wildcard .??*) bin
 EXCLUSIONS := .DS_Store .git .gitmodules .travis.yml
 DOTFILES   := $(filter-out $(EXCLUSIONS), $(CANDIDATES))
 
+
 all: install
+
+hoge:
+	@echo "$(DOTPATH)"
+
+
 
 help:
 	@echo "make list           #=> Show dot files in this repo"

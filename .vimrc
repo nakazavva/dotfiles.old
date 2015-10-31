@@ -1,9 +1,8 @@
-" Note: Skip initialization for vim-tiny or vim-small.
 if 0 | endif
 
-let mapleader=','
+let s:true = 1
+let s:false = 0
 
-" platform
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
 let s:is_mac = !s:is_windows && !s:is_cygwin
@@ -15,24 +14,20 @@ let s:is_linux = !s:is_mac && has('unix')
 let s:vimrc = expand("<sfile>:p")
 let $MYVIMRC = s:vimrc
 
-" NeoBundle path
 if s:is_windows
   let $DOTVIM = expand('~/vimfiles')
 else
   let $DOTVIM = expand('~/.vim')
 endif
+
 let $VIMBUNDLE = $DOTVIM . '/bundle'
 let $NEOBUNDLEPATH = $VIMBUNDLE . '/neobundle.vim'
 
-" Add neobundle to runtimepath.
 if has('vim_starting')
     set runtimepath+=$NEOBUNDLEPATH
 endif
 
-
-" NeoBundle: {{{1
-"
-if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
+if isdirectory($NEOBUNDLEPATH) == s:true
 
     call neobundle#begin(expand($VIMBUNDLE))
     NeoBundleFetch 'Shougo/neobundle.vim'
@@ -60,7 +55,6 @@ if stridx(&runtimepath, $NEOBUNDLEPATH) != -1
     filetype plugin indent on
     NeoBundleCheck
 else
-    echo "Installing neobundle.vim..."
     if !isdirectory($VIMBUNDLE)
         call mkdir($VIMBUNDLE, 'p')
         sleep 1 | echo printf("Creating '%s'.", $VIMBUNDLE)
@@ -68,25 +62,46 @@ else
     cd $VIMBUNDLE
 
     if executable('git')
-      call system('git clone git://github.com/Shougo/neobundle.vim')
-      if v:shell_error
-        throw 'neobundleinit: Git error.'
-      endif
+        call system('git clone git://github.com/Shougo/neobundle.vim')
+        if v:shell_error
+            throw 'neobundleinit: Git error.'
+        endif
     endif
+
+    set runtimepath& runtimepath+=$NEOBUNDLEPATH
+    call neobundle#rc($VIMBUNDLE)
+    try
+        echo printf("Reloading '%s'", $MYVIMRC)
+        source $MYVIMRC
+    catch
+	echohl ErrorMsg
+	echomsg 'neobundleinit: $MYVIMRC: could not source.'
+	echohl None
+    finally
+	echomsg 'Installed neobundle.vim'
+    endtry
+
+    echomsg 'Finish!'
 endif
+
+let mapleader=','
 
 " Shougo/unite.vim "{{{2
 let g:unite_enable_start_insert = 1
 let g:unite_enable_ignore_case = 1
 let g:unite_enable_smart_case = 1 
-
+" unite grep に ag(The Silver Searcher) を使う
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+    let g:unite_source_grep_recursive_opt = ''
+endif
 
 call unite#custom_default_action('file', 'split')
 noremap <Leader>uf :Unite file<CR>
 noremap <Leader>ur :Unite file_rec<CR>
 noremap <Leader>ug :Unite file_rec/git<CR>
 noremap <Leader>um :Unite file_mru<CR>
-
 " grep検索
 nnoremap <silent> <Leader>g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 " ディレクトリを指定してgrep検索
@@ -95,13 +110,6 @@ nnoremap <silent> <Leader>dg :<C-u>Unite grep -buffer-name=search-buffer<CR>
 nnoremap <silent> <Leader>cg :<C-u>Unite grep:. -buffer-name=search-buffer<CR><C-R><C-W><CR>
 " grep検索結果の再呼出
 nnoremap <silent> <Leader>r :<C-u>UniteResume search-buffer<CR>
-" unite grep に ag(The Silver Searcher) を使う
-if executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-    let g:unite_source_grep_recursive_opt = ''
-endif
-
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()"{{{
     "ESCでuniteを終了
@@ -131,7 +139,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_ignore_case = 1
 let g:neocomplete#enable_smart_case = 1
 
-
+" scrooloose/syntastic.git "{{{2
 let g:syntastic_check_on_open=0
 let g:syntastic_check_on_save=1
 let g:syntastic_auto_loc_list=0
@@ -140,15 +148,8 @@ let g:syntastic_enable_signs=1
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
 
-
+" faith/vim-go "{{{2
 let g:go_fmt_command = "goimports"
-
-augroup vimrc
-     autocmd!
-     autocmd BufWritePost *vimrc source $MYVIMRC
-     autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
-augroup END
-
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b <Plug>(go-build)
 au FileType go nmap <leader>t <Plug>(go-test)
@@ -159,8 +160,21 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
+" tyru/caw.vim "{{{2
 nmap <leader>c <Plug>(caw:i:toggle)
 vmap <leader>c <Plug>(caw:i:toggle)
+
+" Use backslash
+if s:is_mac
+  noremap ¥ \
+  noremap \ ¥
+endif
+
+augroup vimrc
+     autocmd!
+     autocmd BufWritePost *vimrc source $MYVIMRC
+     autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+augroup END
 
 set encoding=utf-8 " エンコード
 set fileencoding=utf-8 " ファイルエンコード
