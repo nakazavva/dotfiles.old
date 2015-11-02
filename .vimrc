@@ -198,3 +198,6 @@ set shiftwidth=4 " インデント時のスペースの数
 set completeopt=menuone " 補完時にプレビューウィンドウが開かないようにする、分割時にガチャガチャ動くのを防ぐ
 set backspace=indent,eol,start " バックスペースの動きを自然に
 set clipboard+=unnamed " 無名レジスタに入るデータを＊レジスタにもいれる
+
+filetype on
+syntax on
