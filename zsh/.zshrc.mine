@@ -7,7 +7,9 @@ export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 export ANYENV_ROOT=$HOME/src/github.com/anyenv
 export PATH="$ANYENV_ROOT/bin:$PATH"
-eval "$(anyenv init -)"
+if [ -x `which anyenv` ]; then
+    eval "$(anyenv init -)"
+fi
 
 autoload -Uz compinit
 compinit
