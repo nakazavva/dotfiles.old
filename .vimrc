@@ -51,6 +51,9 @@ if isdirectory($NEOBUNDLEPATH) == s:true
 
     NeoBundle 'tyru/caw.vim'
 
+    NeoBundle 'pangloss/vim-javascript'
+    NeoBundle 'mxw/vim-jsx'
+
     call neobundle#end()
     filetype plugin indent on
     NeoBundleCheck
