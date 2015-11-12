@@ -6,14 +6,8 @@ export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 export ANYENV_ROOT=$HOME/src/github.com/anyenv
-export PATH=$ANYENV_ROOT/bin:$PATH
-if [ -x anyenv ]; then
-    eval "$(anyenv init -)"
-fi
-
-#export DOCKER_HOST=tcp://$(boot2docker ip 2>/dev/null):2376
-#export DOCKER_CERT_PATH=/Users/nakazawa/.boot2docker/certs/boot2docker-vm
-#export DOCKER_TLS_VERIFY=1       
+export PATH="$ANYENV_ROOT/bin:$PATH"
+eval "$(anyenv init -)"
 
 autoload -Uz compinit
 compinit
