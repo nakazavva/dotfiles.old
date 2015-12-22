@@ -183,6 +183,8 @@ au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 nmap <leader>c <Plug>(caw:i:toggle)
 vmap <leader>c <Plug>(caw:i:toggle)
 
+let g:vim_markdown_folding_disabled=1
+
 " Use backslash
 if s:is_mac
   noremap ¥ \
