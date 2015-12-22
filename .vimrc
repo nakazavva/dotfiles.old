@@ -46,13 +46,24 @@ if isdirectory($NEOBUNDLEPATH) == s:true
     \    },
     \ }
 
-    NeoBundle 'scrooloose/syntastic.git'
+"    NeoBundle 'scrooloose/syntastic.git'
     NeoBundle 'fatih/vim-go'
 
     NeoBundle 'tyru/caw.vim'
 
     NeoBundle 'pangloss/vim-javascript'
     NeoBundle 'mxw/vim-jsx'
+
+    NeoBundle 'leafgarland/typescript-vim'
+    NeoBundle 'Quramy/tsuquyomi'
+
+    NeoBundleLazy 'plasticboy/vim-markdown', {
+    \ 'autoload' : {
+    \   'filetypes' : ['markdown'] }
+    \ }
+
+    NeoBundle 'kannokanno/previm'
+    NeoBundle 'tyru/open-browser.vim'
 
     call neobundle#end()
     filetype plugin indent on
