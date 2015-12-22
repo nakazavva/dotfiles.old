@@ -65,6 +65,8 @@ if isdirectory($NEOBUNDLEPATH) == s:true
     NeoBundle 'kannokanno/previm'
     NeoBundle 'tyru/open-browser.vim'
 
+    NeoBundle 'digitaltoad/vim-jade.git'
+
     call neobundle#end()
     filetype plugin indent on
     NeoBundleCheck
