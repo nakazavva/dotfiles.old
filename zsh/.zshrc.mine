@@ -5,10 +5,10 @@ export PATH="$HOME/.linuxbrew/bin:$PATH"
 export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
-export ANYENV_ROOT=$HOME/src/github.com/anyenv
-export PATH="$ANYENV_ROOT/bin:$PATH"
-if [ -x `which anyenv` ]; then
-    eval "$(anyenv init -)"
+export ANYENV_PATH=$HOME/.anyenv/bin
+export PATH="$ANYENV_PATH/bin:$PATH"
+if [ -e "$ANYENV_PATH/anyenv" ]; then
+   eval "$($ANYENV_PATH/anyenv init -)"
 fi
 
 autoload -Uz compinit
