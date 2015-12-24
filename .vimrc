@@ -46,6 +46,10 @@ if isdirectory($NEOBUNDLEPATH) == s:true
     \    },
     \ }
 
+    NeoBundle 'w0ng/vim-hybrid'
+    NeoBundle 'bling/vim-airline'
+    NeoBundle 'tpope/vim-fugitive'
+
 "    NeoBundle 'scrooloose/syntastic.git'
     NeoBundle 'fatih/vim-go'
 
@@ -185,6 +189,21 @@ vmap <leader>c <Plug>(caw:i:toggle)
 
 let g:vim_markdown_folding_disabled=1
 
+"######################################################################################
+"" Airline:
+"######################################################################################
+set laststatus=2
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
 " Use backslash
 if s:is_mac
   noremap ¥ \
@@ -197,6 +216,7 @@ augroup vimrc
      autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
 augroup END
 
+set t_Co=256
 set encoding=utf-8 " エンコード
 set fileencoding=utf-8 " ファイルエンコード
 set noswapfile " .swapファイルを作らない
@@ -219,6 +239,8 @@ set shiftwidth=4 " インデント時のスペースの数
 set completeopt=menuone " 補完時にプレビューウィンドウが開かないようにする、分割時にガチャガチャ動くのを防ぐ
 set backspace=indent,eol,start " バックスペースの動きを自然に
 set clipboard+=unnamed " 無名レジスタに入るデータを＊レジスタにもいれる
+set background=dark
+colorscheme hybrid
 
 filetype on
 syntax on
