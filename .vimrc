@@ -214,6 +214,7 @@ augroup vimrc
      autocmd!
      autocmd BufWritePost *vimrc source $MYVIMRC
      autocmd BufWritePost *gvimrc if has('gui_running') source $MYGVIMRC
+     autocmd FileType jade setlocal shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
 
 set t_Co=256
