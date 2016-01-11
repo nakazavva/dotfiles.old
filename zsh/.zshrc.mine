@@ -6,7 +6,7 @@ export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
 export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
 
 export ANYENV_PATH=$HOME/.anyenv/bin
-export PATH="$ANYENV_PATH/bin:$PATH"
+export PATH="$ANYENV_PATH:$PATH"
 if [ -e "$ANYENV_PATH/anyenv" ]; then
    eval "$($ANYENV_PATH/anyenv init -)"
 fi
