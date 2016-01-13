@@ -11,6 +11,7 @@ if [ -e "$ANYENV_PATH/anyenv" ]; then
    eval "$($ANYENV_PATH/anyenv init -)"
 fi
 
+
 autoload -Uz compinit
 compinit
 
@@ -41,3 +42,6 @@ zle -N peco-src
 bindkey '^]' peco-src
 
 alias aliases="alias | peco"
+alias dck="docker"
+alias dcc="docker-compose"
+alias dcm="docker-machine"
