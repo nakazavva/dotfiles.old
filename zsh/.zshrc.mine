@@ -40,4 +40,4 @@ zle -N peco-src
 
 bindkey '^]' peco-src
 
-alias alias="alias | peco"
+alias aliases="alias | peco"
