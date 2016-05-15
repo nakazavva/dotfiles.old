@@ -1,6 +1,6 @@
 repos = [
     "github.com/nsf/gocode",
     "golang.org/x/tools/cmd/goimports",
-    "github.com/peco/peco",
+    "github.com/peco/peco/cmd/peco",
     "github.com/motemen/ghq"
 ]
